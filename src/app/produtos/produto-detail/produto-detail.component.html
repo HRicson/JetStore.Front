@@ -1,0 +1,93 @@
+<div class="container">
+  <h2>Produto</h2>
+
+  <form action="" method="post">
+    <h3>Informações Principais</h3>
+    <hr />
+
+    <div class="mb-3 form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        id="produto_status"
+      />
+      <label class="form-check-label" for="produto_status">
+        Status
+      </label>
+    </div>
+
+    <div class="mb-3">
+      <label for="produto_nome" class="form-label">
+        Nome do Produto
+      </label>
+
+      <input
+        type="text"
+        class="form-control"
+        id="produto_nome"
+        placeholder="Infome o nome do produto"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="produto_estoque" class="form-label">
+        Estoque
+      </label>
+
+      <input
+        type="number"
+        class="form-control"
+        id="produto_estoque"
+        placeholder="Quantidade em estoque"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="produto_preco" class="form-label">
+        Preço
+      </label>
+
+      <input
+        type="text"
+        class="form-control"
+        id="produto_preco"
+        placeholder="0,00"
+      />
+    </div>
+
+    <h3>Informações Adicionais</h3>
+    <hr />
+
+    <div class="mb-3">
+      <label for="produto_descricao" class="form-label">
+        Descrição do Produto
+      </label>
+
+      <textarea
+        id="produto_descricao"
+        class="form-control"
+        placeholder="Breve descrição do produto"
+      ></textarea>
+    </div>
+
+    <h3>Imagem</h3>
+    <hr />
+
+    <div class="mb-3">
+      <label for="formFile" class="form-label">
+        Imagem do Produto
+      </label>
+      <input class="form-control" type="file" id="formFile" />
+
+      <div id="produto_imagem">
+        <!-- Exibir a imagem aqui -->
+      </div>
+    </div>
+  </form>
+
+  <div class="buttons">
+    <button class="button btn-cancel">Cancelar</button>
+    <button class="button btn-save">Salvar Informações</button>
+  </div>
+</div>

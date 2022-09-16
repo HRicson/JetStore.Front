@@ -1,1 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: rgba(227, 227, 236, 0.452);
+  margin-bottom: 5rem;
+}
+
+h2 {
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-weight: 400;
+}
+
+form {
+  background-color: #fff;
+  padding: 3rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  background-color: rgba(227, 227, 236, 0.452);
+}
+
+.button {
+  border: none;
+  font-weight: 500;
+  padding: 5px 15px;
+  border-radius: 5px;
+  margin: 0 1rem ;
+}
+
+.btn-save {
+  background-color: rgb(0, 0, 105);
+  color: #fff;
+}
+
+.btn-cancel {
+  background-color: rgb(248, 248, 252);
+  border: solid rgb(187, 187, 187) 1px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
