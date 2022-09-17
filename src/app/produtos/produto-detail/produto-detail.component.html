@@ -1,16 +1,17 @@
 <div class="container">
   <h2>Produto</h2>
 
-  <form action="" method="post">
+  <form (ngSubmit)="salvarProduto()" [formGroup]="produtoForm">
     <h3>Informações Principais</h3>
-    <hr />
 
     <div class="mb-3 form-check">
       <input
         class="form-check-input"
         type="checkbox"
         value=""
-        id="produto_status"
+        id="status"
+        maxlength="150"
+        formControlName="status"
       />
       <label class="form-check-label" for="produto_status">
         Status
@@ -26,7 +27,8 @@
         type="text"
         class="form-control"
         id="produto_nome"
-        placeholder="Infome o nome do produto"
+        placeholder="Nome do Produto (requerido)"
+        formControlName="nome"
       />
     </div>
 
@@ -39,13 +41,14 @@
         type="number"
         class="form-control"
         id="produto_estoque"
-        placeholder="Quantidade em estoque"
+        placeholder="Estoque (requerido)"
+        formControlName="estoque"
       />
     </div>
 
     <div class="mb-3">
       <label for="produto_preco" class="form-label">
-        Preço
+        Preço (R$)
       </label>
 
       <input
@@ -53,11 +56,11 @@
         class="form-control"
         id="produto_preco"
         placeholder="0,00"
+        formControlName="preco"
       />
     </div>
 
     <h3>Informações Adicionais</h3>
-    <hr />
 
     <div class="mb-3">
       <label for="produto_descricao" class="form-label">
@@ -67,27 +70,58 @@
       <textarea
         id="produto_descricao"
         class="form-control"
-        placeholder="Breve descrição do produto"
+        placeholder="Descrição do Produto (requerido)"
+        maxlength="2000"
+        formControlName="descricao"
       ></textarea>
     </div>
 
     <h3>Imagem</h3>
-    <hr />
 
     <div class="mb-3">
       <label for="formFile" class="form-label">
         Imagem do Produto
       </label>
-      <input class="form-control" type="file" id="formFile" />
+      <input
+        id="formFile"
+        class="form-control"
+        type="file"
+        accept="image/png, image/jpeg"
+        #arquivomatCardImageMedium
+        #file
+        (change)="carregarImagem(file.files)"
+      />
+    </div>
 
-      <div id="produto_imagem">
-        <!-- Exibir a imagem aqui -->
-      </div>
+    <div class="card">
+      <svg
+        *ngIf="!produto.imagemBase64String"
+        id="icone-imagem"
+        xmlns="http://www.w3.org/2000/svg"
+        width="180"
+        height="180"
+        fill="currentColor"
+        class="bi bi-image"
+        viewBox="0 0 16 16"
+      >
+        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+        <path
+          d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"
+        />
+      </svg>
+
+      <img
+        id="produto_imagem"
+        *ngIf="produto.imagemBase64String"
+        [src]="produto.imagemBase64String"
+        class="card-img-top"
+        alt="Imagem do produto"
+      />
+    </div>
+
+    <div class="buttons">
+      <button class="button btn-cancel">Cancelar</button>
+      <button type="submit" class="button btn-save">Salvar Informações</button>
     </div>
   </form>
-
-  <div class="buttons">
-    <button class="button btn-cancel">Cancelar</button>
-    <button class="button btn-save">Salvar Informações</button>
-  </div>
 </div>

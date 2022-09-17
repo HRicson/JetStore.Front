@@ -1,20 +1,24 @@
-import { ProdutosModule } from './produtos/produtos.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ProdutoDetailComponent } from './produtos/produto-detail/produto-detail.component';
-import { ProdutoListComponent } from './produtos/produto-list/produto-list.component';
 import { MenuComponent } from './menu/menu.component';
+import { rootRouterConfig } from './app.routes';
+import { ProdutosModule } from './produtos/produtos.module';
+import { PrincipalComponent } from './principal/principal.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent
+    MenuComponent,
+    PrincipalComponent
   ],
   imports: [
     BrowserModule,
-    ProdutosModule
+    ProdutosModule,
+    [RouterModule.forRoot(rootRouterConfig, { useHash: false })]
   ],
   providers: [],
   bootstrap: [AppComponent]

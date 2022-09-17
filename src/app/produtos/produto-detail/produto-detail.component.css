@@ -3,3 +3,32 @@
   flex-direction: row;
   justify-content: flex-end;
 }
+
+#produto_nome, #produto_descricao, #formFile {
+  width: 45rem;
+}
+
+#produto_descricao {
+  height: 15rem;
+}
+
+#produto_estoque, #produto_preco {
+  width: 20rem;
+}
+
+.card  {
+  width: 35rem;
+  height: 30rem;
+  border-radius: 1rem;
+}
+
+#produto_imagem {
+  width: 35rem;
+  height: 30rem;
+  border-radius: 1rem;
+}
+
+#icone-imagem {
+  margin: auto;
+  color: rgb(197, 212, 245);
+}
