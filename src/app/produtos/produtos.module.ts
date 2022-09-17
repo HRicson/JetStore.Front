@@ -1,9 +1,10 @@
+import { NgxMaskModule } from 'ngx-mask';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ProdutoDetailComponent } from './produto-detail/produto-detail.component';
 import { ProdutoListComponent } from './produto-list/produto-list.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxMaskModule.forChild()
   ],
   exports: [
     ProdutoDetailComponent,

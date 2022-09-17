@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  margin-top: 1rem;
 }
 
 #produto_nome, #produto_descricao, #formFile {
@@ -16,16 +17,12 @@
   width: 20rem;
 }
 
-.card  {
-  width: 35rem;
+.card, #produto_imagem {
+  width: 30rem;
   height: 30rem;
-  border-radius: 1rem;
-}
-
-#produto_imagem {
-  width: 35rem;
-  height: 30rem;
-  border-radius: 1rem;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 5px;
 }
 
 #icone-imagem {

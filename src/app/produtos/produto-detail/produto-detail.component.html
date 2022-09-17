@@ -29,7 +29,23 @@
         id="produto_nome"
         placeholder="Nome do Produto (requerido)"
         formControlName="nome"
+        [ngClass]="{
+          'is-invalid':
+            produtoForm.get('nome')?.errors &&
+            (produtoForm.get('nome')?.dirty ||
+              produtoForm.get('nome')?.touched),
+          'is-valid': !produtoForm.get('nome')?.errors
+        }"
       />
+      <span
+        class="text-danger"
+        *ngIf="
+          produtoForm.get('nome')?.errors &&
+          (produtoForm.get('nome')?.dirty || produtoForm.get('nome')?.touched)
+        "
+      >
+        *Preencha o campo 'Nome do Produto'
+      </span>
     </div>
 
     <div class="mb-3">
@@ -43,7 +59,24 @@
         id="produto_estoque"
         placeholder="Estoque (requerido)"
         formControlName="estoque"
+        [ngClass]="{
+          'is-invalid':
+            produtoForm.get('estoque')?.errors &&
+            (produtoForm.get('estoque')?.dirty ||
+              produtoForm.get('estoque')?.touched),
+          'is-valid': !produtoForm.get('estoque')?.errors
+        }"
       />
+      <span
+        class="text-danger"
+        *ngIf="
+          produtoForm.get('estoque')?.errors &&
+          (produtoForm.get('estoque')?.dirty ||
+            produtoForm.get('estoque')?.touched)
+        "
+      >
+        *Preencha o campo 'Estoque'
+      </span>
     </div>
 
     <div class="mb-3">
@@ -53,11 +86,30 @@
 
       <input
         type="text"
+        minlength="1"
         class="form-control"
         id="produto_preco"
-        placeholder="0,00"
+        placeholder="R$ 0,00"
         formControlName="preco"
+        mask="separator.2"
+        thousandSeparator="."
+        [ngClass]="{
+          'is-invalid':
+            produtoForm.get('preco')?.errors &&
+            (produtoForm.get('preco')?.dirty ||
+              produtoForm.get('preco')?.touched),
+          'is-valid': !produtoForm.get('preco')?.errors
+        }"
       />
+      <span
+        class="text-danger"
+        *ngIf="
+          produtoForm.get('preco')?.errors &&
+          (produtoForm.get('preco')?.dirty || produtoForm.get('preco')?.touched)
+        "
+      >
+        *Preencha o campo 'Preço'
+      </span>
     </div>
 
     <h3>Informações Adicionais</h3>
@@ -73,15 +125,29 @@
         placeholder="Descrição do Produto (requerido)"
         maxlength="2000"
         formControlName="descricao"
+        [ngClass]="{
+          'is-invalid':
+            produtoForm.get('descricao')?.errors &&
+            (produtoForm.get('descricao')?.dirty ||
+              produtoForm.get('descricao')?.touched),
+          'is-valid': !produtoForm.get('descricao')?.errors
+        }"
       ></textarea>
+      <span
+        class="text-danger"
+        *ngIf="
+          produtoForm.get('descricao')?.errors &&
+          (produtoForm.get('descricao')?.dirty ||
+            produtoForm.get('descricao')?.touched)
+        "
+      >
+        *Preencha o campo 'Descrição do Produto'
+      </span>
     </div>
 
     <h3>Imagem</h3>
 
     <div class="mb-3">
-      <label for="formFile" class="form-label">
-        Imagem do Produto
-      </label>
       <input
         id="formFile"
         class="form-control"
@@ -90,7 +156,18 @@
         #arquivomatCardImageMedium
         #file
         (change)="carregarImagem(file.files)"
+        [ngClass]="{
+          'is-invalid':
+            produtoForm.valid && this.produto.imagemBase64String === '',
+          'is-valid': this.produto.imagemBase64String != ''
+        }"
       />
+      <span
+        class="text-danger"
+        *ngIf="produtoForm.valid && this.produto.imagemBase64String === ''"
+      >
+        *Selecione a imagem do produto
+      </span>
     </div>
 
     <div class="card">
@@ -119,9 +196,48 @@
       />
     </div>
 
+    <div class="mb-3">
+      <br />
+      <p>
+        Formulário válido:
+        <strong>{{ produtoForm.valid }}</strong>
+      </p>
+
+      <p>
+        Formulário Tocado:
+        <strong>{{ produtoForm.touched }}</strong>
+      </p>
+
+      <p>
+        Formulário Sujo:
+        <strong>{{ produtoForm.dirty }}</strong>
+      </p>
+
+      <p>{{ fromResult }}</p>
+    </div>
+
+    <hr />
+
     <div class="buttons">
-      <button class="button btn-cancel">Cancelar</button>
-      <button type="submit" class="button btn-save">Salvar Informações</button>
+      <span
+        style="color: gray;"
+        *ngIf="!produtoForm.valid || this.produto.imagemBase64String === ''"
+      >
+        Preencha todos os campos do formulário para salvar.
+      </span>
+
+      <button type="button" class="button btn-cancel">
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        class="button btn-save"
+        [disabled]="
+          !produtoForm.valid || this.produto.imagemBase64String === ''
+        "
+      >
+        Salvar Informações
+      </button>
     </div>
   </form>
 </div>

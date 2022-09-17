@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit, LOCALE_ID } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Produto } from '../model/produto';
 
@@ -13,23 +13,24 @@ export class ProdutoDetailComponent implements OnInit {
   produtoForm!: FormGroup;
   produto: Produto = new Produto();
   imagemProduto: any;
+  fromResult: string = '';
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.produtoForm = this.formBuilder.group({
       status: [''],
-      nome: [''],
-      estoque: [''],
-      preco: [''],
-      descricao: ['']
+      nome: ['', Validators.required],
+      estoque: ['', Validators.required],
+      preco: ['', Validators.required],
+      descricao: ['', Validators.required]
     });
   }
 
   salvarProduto() {
     this.produto = Object.assign({}, this.produto, this.produtoForm.value);
+    this.fromResult = JSON.stringify(this.produtoForm.value) // TESTE
     this.produto.imagemBase64String = this.imagemProduto;
-    console.log(this.produto)
   }
 
   carregarImagem(files: any) {
@@ -43,5 +44,4 @@ export class ProdutoDetailComponent implements OnInit {
       this.produto.imagemBase64String = this.imagemProduto;
     };
   }
-
 }
