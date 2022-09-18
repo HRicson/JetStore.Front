@@ -2,8 +2,8 @@ export class Produto {
   id: string = '';
   nome: string = '';
   descricao: string = '';
-  estoque: number = 0;
+  estoque?: number;
   status: boolean = false
-  preco: number = 0;
+  preco?: number;
   imagemBase64String: string = '';
 }

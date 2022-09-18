@@ -13,15 +13,11 @@
       #file
       (change)="carregarImagem(file.files)"
       [ngClass]="{
-        'is-invalid':
-          produtoForm.valid && this.produto.imagemBase64String === '',
-        'is-valid': this.produto.imagemBase64String != ''
+        'is-invalid': produtoForm.touched && !imagemValida(),
+        'is-valid': produtoForm.touched && imagemValida()
       }"
     />
-    <span
-      class="text-danger"
-      *ngIf="produtoForm.valid && this.produto.imagemBase64String === ''"
-    >
+    <span class="text-danger" *ngIf="produtoForm.valid && !imagemValida()">
       *Selecione a imagem do produto
     </span>
   </div>
@@ -56,6 +52,7 @@
 
   <div class="mb-3 form-check">
     <input
+      [(ngModel)]="produto.status"
       class="form-check-input"
       type="checkbox"
       value=""
@@ -73,6 +70,7 @@
     </label>
 
     <input
+      [(ngModel)]="produto.nome"
       type="text"
       class="form-control"
       id="produto_nome"
@@ -81,15 +79,17 @@
       maxlength="150"
       [ngClass]="{
         'is-invalid':
-          produtoForm.get('nome')?.errors &&
+          !nomeValido() &&
           (produtoForm.get('nome')?.dirty || produtoForm.get('nome')?.touched),
-        'is-valid': !produtoForm.get('nome')?.errors
+        'is-valid':
+          nomeValido() &&
+          (produtoForm.get('nome')?.dirty || produtoForm.get('nome')?.touched)
       }"
     />
     <span
       class="text-danger"
       *ngIf="
-        produtoForm.get('nome')?.errors &&
+        !nomeValido() &&
         (produtoForm.get('nome')?.dirty || produtoForm.get('nome')?.touched)
       "
     >
@@ -103,6 +103,7 @@
     </label>
 
     <input
+      [(ngModel)]="produto.estoque"
       type="number"
       class="form-control"
       id="produto_estoque"
@@ -110,16 +111,19 @@
       formControlName="estoque"
       [ngClass]="{
         'is-invalid':
-          produtoForm.get('estoque')?.errors &&
+          !estoqueValido() &&
           (produtoForm.get('estoque')?.dirty ||
             produtoForm.get('estoque')?.touched),
-        'is-valid': !produtoForm.get('estoque')?.errors
+        'is-valid':
+          estoqueValido() &&
+          (produtoForm.get('estoque')?.dirty ||
+            produtoForm.get('estoque')?.touched)
       }"
     />
     <span
       class="text-danger"
       *ngIf="
-        produtoForm.get('estoque')?.errors &&
+        !estoqueValido() &&
         (produtoForm.get('estoque')?.dirty ||
           produtoForm.get('estoque')?.touched)
       "
@@ -134,6 +138,7 @@
     </label>
 
     <input
+      [(ngModel)]="produto.preco"
       type="text"
       class="form-control"
       id="produto_preco"
@@ -143,16 +148,18 @@
       [textMask]="{ mask: MASKS.currency.textMask }"
       [ngClass]="{
         'is-invalid':
-          produtoForm.get('preco')?.errors &&
+          !precoValido() &&
           (produtoForm.get('preco')?.dirty ||
             produtoForm.get('preco')?.touched),
-        'is-valid': !produtoForm.get('preco')?.errors
+        'is-valid':
+          precoValido() &&
+          (produtoForm.get('preco')?.dirty || produtoForm.get('preco')?.touched)
       }"
     />
     <span
       class="text-danger"
       *ngIf="
-        produtoForm.get('preco')?.errors &&
+        !precoValido() &&
         (produtoForm.get('preco')?.dirty || produtoForm.get('preco')?.touched)
       "
     >
@@ -168,6 +175,7 @@
     </label>
 
     <textarea
+      [(ngModel)]="produto.descricao"
       id="produto_descricao"
       class="form-control"
       placeholder="Descrição do Produto (requerido)"
@@ -175,16 +183,19 @@
       formControlName="descricao"
       [ngClass]="{
         'is-invalid':
-          produtoForm.get('descricao')?.errors &&
+          !descricaoValido() &&
           (produtoForm.get('descricao')?.dirty ||
             produtoForm.get('descricao')?.touched),
-        'is-valid': !produtoForm.get('descricao')?.errors
+        'is-valid':
+          descricaoValido() &&
+          (produtoForm.get('descricao')?.dirty ||
+            produtoForm.get('descricao')?.touched)
       }"
     ></textarea>
     <span
       class="text-danger"
       *ngIf="
-        produtoForm.get('descricao')?.errors &&
+        !descricaoValido() &&
         (produtoForm.get('descricao')?.dirty ||
           produtoForm.get('descricao')?.touched)
       "
@@ -195,7 +206,7 @@
 
   <hr />
   <div
-    *ngIf="!produtoForm.valid || this.produto.imagemBase64String === ''"
+    *ngIf="!produtoForm.valid || this.produto.imagemBase64String == ''"
     class="mb-3"
   >
     <span style="color: gray;">
