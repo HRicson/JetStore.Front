@@ -13,18 +13,34 @@ export class ProdutoListComponent implements OnInit {
 
   produtoPesquisa: string = '';
   produtoList: Produto[] = [];
-  produtoService: ProdutoService;
 
-  constructor(private router: Router) {
-    this.produtoService = new ProdutoService();
+  constructor(private router: Router, private produtoService: ProdutoService) {
   }
 
   ngOnInit(): void {
-    this.produtoList = this.produtoService.consultarListaProduto();
+    this.consultarProdutos()
+  }
+
+  consultarProdutos() {
+    this.produtoService.consultarLista()
+      .subscribe(
+        (produtosResposta) => {
+          this.produtoList = produtosResposta.data;
+          this.produtoService.produtosTempList = this.produtoList;
+        }
+      );
   }
 
   excluir(id: string) {
-    this.produtoService.excluir(id);
+    let removido: boolean;
+
+    this.produtoService.excluir(id)
+      .subscribe(
+        (produtosResposta) => {
+          removido = produtosResposta.success;
+          this.produtoList = this.produtoList.filter(x => x.id != id);
+        }
+      );
   }
 
   pesquisa(textoPesquisa: any) {
@@ -32,6 +48,6 @@ export class ProdutoListComponent implements OnInit {
   }
 
   pesquisarProduto() {
-    this.produtoList = this.produtoService.produtos.filter(x => x.nome.includes(this.produtoPesquisa))
+    this.produtoList = this.produtoService.produtosTempList.filter(x => x.nome.includes(this.produtoPesquisa))
   }
 }

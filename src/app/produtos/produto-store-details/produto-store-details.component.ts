@@ -13,27 +13,31 @@ import { ProdutoService } from '../service/produto.service';
 })
 export class ProdutoStoreDetailsComponent implements OnInit {
 
-  produtoService: ProdutoService;
   quantidade: number = 0;
-
   id: string = '';
   inscricao: Subscription = new Subscription();
   produto?: Produto;
 
-  constructor(private route: ActivatedRoute) {
-    this.produtoService = new ProdutoService();
+  constructor(private route: ActivatedRoute, private produtoService: ProdutoService) {
   }
 
   ngOnInit(): void {
     this.inscricao = this.route.params
       .subscribe((params: any) => {
         this.id = params['id']
-        this.produto = this.produtoService.consultarProduto(this.id);
+        this.consultarProduto(this.id);
       });
   }
 
   ngOnDestroy() {
     this.inscricao.unsubscribe();
+  }
+
+  consultarProduto(id: string) {
+    this.produtoService.consultarProduto(id)
+      .subscribe(
+        (produtosResposta) => (this.produto = produtosResposta.data)
+      );
   }
 
   adicionar() {

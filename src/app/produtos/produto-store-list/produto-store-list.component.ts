@@ -13,15 +13,22 @@ export class ProdutoStoreListComponent implements OnInit {
 
   produtoLojaPesquisa: string = '';
   produtoLojaList: Produto[] = [];
-  produtoService: ProdutoService;
 
-  constructor(private router: Router) {
-    this.produtoService = new ProdutoService();
+  constructor(private router: Router, private produtoService: ProdutoService) {
   }
 
   ngOnInit(): void {
-    this.produtoLojaList = this.produtoService.consultarProdutoLoja();
-    console.log(this.produtoLojaList)
+    this.consultarProdutosLoja();
+  }
+
+  consultarProdutosLoja() {
+    this.produtoService.consultarLoja()
+      .subscribe(
+        (produtosResposta) => {
+          this.produtoLojaList = produtosResposta.data;
+          this.produtoService.produtosTempList = this.produtoLojaList;
+        }
+      );
   }
 
   pesquisaLoja(textoPesquisa: any) {
@@ -29,6 +36,6 @@ export class ProdutoStoreListComponent implements OnInit {
   }
 
   pesquisarProdutoLoja() {
-    this.produtoLojaList = this.produtoService.produtos.filter(x => x.nome.includes(this.produtoLojaPesquisa));
+    this.produtoLojaList = this.produtoService.produtosTempList.filter(x => x.nome.includes(this.produtoLojaPesquisa));
   }
 }

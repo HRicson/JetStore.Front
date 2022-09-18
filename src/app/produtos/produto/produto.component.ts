@@ -17,16 +17,13 @@ export class ProdutoComponent implements OnInit {
 
   produtoForm!: FormGroup;
   produto: Produto = new Produto();
-  produtoService: ProdutoService;
   inscricao: Subscription = new Subscription();
   id: string = '';
   imagemProduto: any;
   fromResult: string = '';
   MASKS = utilsBr.MASKS;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
-    this.produtoService = new ProdutoService();
-  }
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private produtoService: ProdutoService) { }
 
   ngOnInit(): void {
     this.produtoForm = this.formBuilder.group({
@@ -40,15 +37,28 @@ export class ProdutoComponent implements OnInit {
     this.inscricao = this.route.params
       .subscribe((params: any) => {
         this.id = params['id'];
-
-        let produtoResult = this.produtoService.consultarProduto(this.id);
-        if (produtoResult)
-          this.produto = produtoResult
+        if (this.id)
+          this.consultarProduto(this.id);
       });
   }
 
-  ngAfterViewInit() {
+  consultarProduto(id: string) {
+    this.produtoService
+      .consultarProduto(id)
+      .subscribe((produtosResposta) => (this.produto = produtosResposta.data));
+  }
 
+  salvarProduto() {
+    if (this.produto.id !== '') {
+      this.produtoService
+        .alterar(this.produto)
+        .subscribe((produtosResposta) => (this.produto = produtosResposta.data));
+    }
+    else {
+      this.produtoService
+        .cadastrar(this.produto)
+        .subscribe((produtosResposta) => (this.produto = produtosResposta.data));
+    }
   }
 
   imagemValida = () => this.produto.imagemBase64String != '';
@@ -60,21 +70,6 @@ export class ProdutoComponent implements OnInit {
   estoqueValido = () => this.produtoForm.get('estoque')?.errors ? false : true;
 
   descricaoValido = () => this.produtoForm.get('descricao')?.errors ? false : true;
-
-  salvarProduto() {
-    if (this.produto.id)
-      this.atualizarProduto()
-    else
-      this.cadastrarProduto()
-  }
-
-  atualizarProduto() {
-    //DESENVOLVER
-  }
-
-  cadastrarProduto() {
-    //DESENVOLVER
-  }
 
   carregarImagem(files: any) {
     if (files.lengh === 0 || files[0].type.match(/image\/*/) == null)

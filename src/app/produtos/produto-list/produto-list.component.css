@@ -5,7 +5,6 @@ table {
   margin-bottom: 1rem;
   margin-top: 15px;
   vertical-align: middle;
-  text-align: center;
 }
 
 form {
@@ -25,7 +24,7 @@ img {
 #imagem_produto {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   text-transform: capitalize;
 }
