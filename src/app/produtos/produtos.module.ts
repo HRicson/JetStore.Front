@@ -1,25 +1,40 @@
-import { NgxMaskModule } from 'ngx-mask';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ProdutoDetailComponent } from './produto-detail/produto-detail.component';
+import { NgBrazil, } from 'ng-brazil';
+import { TextMaskModule } from 'angular2-text-mask';
+import ptBr from '@angular/common/locales/pt';
+
+import { ProdutoComponent } from './produto/produto.component';
 import { ProdutoListComponent } from './produto-list/produto-list.component';
+import { ProdutoStoreDetailsComponent } from './produto-store-details/produto-store-details.component';
+import { ProdutoStoreListComponent } from './produto-store-list/produto-store-list.component';
+import { Routing } from '../app.routes';
+
+registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [
-    ProdutoDetailComponent,
-    ProdutoListComponent
+    ProdutoComponent,
+    ProdutoListComponent,
+    ProdutoStoreDetailsComponent,
+    ProdutoStoreListComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxMaskModule.forChild()
+    TextMaskModule,
+    NgBrazil,
+    Routing
   ],
   exports: [
-    ProdutoDetailComponent,
+    ProdutoComponent,
     ProdutoListComponent
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: "pt" }
   ]
 })
 export class ProdutosModule { }

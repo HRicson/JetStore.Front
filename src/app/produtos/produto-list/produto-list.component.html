@@ -1,1 +1,95 @@
-<p>produto-list works!</p>
+<div class="container">
+  <form class="d-flex">
+    <input
+      class="form-control me-2"
+      type="search"
+      placeholder="Buscar produto..."
+      aria-label="Search"
+      (input)="pesquisa($event.target)"
+    />
+    <button
+      class="btn btn-outline-primary"
+      type="button"
+      (click)="pesquisarProduto()"
+    >
+      <i class="bi bi-search"></i>
+    </button>
+  </form>
+
+  <button class="btn btn-primary" [routerLink]="['/admin/produto']">
+    <i class="bi bi-plus-square"></i>
+    Cadastrar Produto
+  </button>
+
+  <h2>Produtos</h2>
+
+  <table class="table" *ngIf="produtoList.length > 0">
+    <thead>
+      <tr>
+        <th scope="col">Nome do Produto</th>
+        <th scope="col">Estoque</th>
+        <th scope="col">Status</th>
+        <th scope="col">Preço</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of produtoList">
+        <td>
+          <div id="imagem_produto">
+            <div class="card">
+              <img
+                *ngIf="produto.imagemBase64String"
+                [src]="'data:image/png;base64,' + produto.imagemBase64String"
+                class="card-img-top"
+                alt="Imagem do produto"
+              />
+            </div>
+            {{ produto.nome }}
+          </div>
+        </td>
+        <td>{{ produto.estoque }}</td>
+        <td>
+          <input
+            type="checkbox"
+            name=""
+            [checked]="produto.status"
+            (click)="(false)"
+          />
+        </td>
+        <td>{{ produto.preco | currency: 'BRL' }}</td>
+        <td class="td-button-option">
+          <button
+            class="btn btn-primary"
+            title="Detalhes"
+            [routerLink]="['/loja/produto-detalhes', produto.id]"
+          >
+            <i class="bi bi-info-circle"></i>
+          </button>
+
+          <button
+            class="btn btn-warning"
+            title="Editar"
+            [routerLink]="['/admin/produto', produto.id]"
+          >
+            <i class="bi bi-pencil-square"></i>
+          </button>
+
+          <button
+            (click)="excluir(produto.id)"
+            class="btn btn-danger"
+            title="Excluir"
+          >
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <div *ngIf="produtoList.length == 0" class="alert alert-primary" role="alert">
+    Sem produtos.
+  </div>
+</div>

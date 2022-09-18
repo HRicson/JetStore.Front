@@ -1,0 +1,44 @@
+<div *ngIf="produto" id="produto_detalhes">
+  <div id="produto_imagem">
+    <img
+      id="produto_imagem"
+      [src]="'data:image/png;base64,' + produto.imagemBase64String"
+      alt="Imagem produto"
+    />
+  </div>
+
+  <div id="produto_informacoes">
+    <h1>{{ produto.nome }}</h1>
+
+    <div id="produto_preco">
+      {{ produto.preco | currency: 'BRL' }}
+    </div>
+
+    <div id="descricao_titulo">
+      Detalhes:
+    </div>
+    <p id="descricao">
+      {{ produto.descricao }}
+    </p>
+
+    <span id="quantidade">
+      <button class="quantidade_button" (click)="adicionar()">
+        <i class="bi bi-plus"></i>
+      </button>
+
+      <span id="quantidade_total">{{ quantidade }}</span>
+
+      <button
+        class="quantidade_button"
+        (click)="subtrair()"
+        [disabled]="quantidade == 0"
+      >
+        <i class="bi bi-dash"></i>
+      </button>
+    </span>
+    <button class="btn btn-primary" [disabled]="quantidade == 0">
+      <i class="bi bi-cart-plus"></i>
+      ADICIONAR AO CARRINHO
+    </button>
+  </div>
+</div>

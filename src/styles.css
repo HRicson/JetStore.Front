@@ -1,6 +1,12 @@
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
 body {
   background-color: rgba(227, 227, 236, 0.315);
   margin-bottom: 2rem;
+}
+
+.navbar-brand {
+  margin-left: 7rem;
 }
 
 h2 {
@@ -50,4 +56,3 @@ form {
 .navbar {
   margin-bottom: 20px;
 }
-
