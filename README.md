@@ -1,7 +1,19 @@
+
+
 # JetStoreFront
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.2.
 
+##	Versão utilizada:
+		Angular CLI: 14.2.2
+		Node: 14.16.1
+		Package Manager: npm 6.14.12
+		Angular: 14.2.1
+		
+##	Comandos NPM para executar:
+		npm i (instalar dependências)
+		npm start
+    
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
