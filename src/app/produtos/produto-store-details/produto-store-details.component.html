@@ -10,6 +10,14 @@
   <div id="produto_informacoes">
     <h1>{{ produto.nome }}</h1>
 
+    <div class="avaliacao">
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star"></i>
+      <i class="bi bi-star"></i>
+    </div>
+
     <div id="produto_preco">
       {{ produto.preco | currency: 'BRL' }}
     </div>
@@ -42,3 +50,11 @@
     </button>
   </div>
 </div>
+
+<button
+  type="button"
+  class="btn btn-outline-primary voltar_loja"
+  [routerLink]="['']"
+>
+  Voltar
+</button>

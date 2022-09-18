@@ -62,15 +62,18 @@ export class ProdutoComponent implements OnInit {
   descricaoValido = () => this.produtoForm.get('descricao')?.errors ? false : true;
 
   salvarProduto() {
+    if (this.produto.id)
+      this.atualizarProduto()
+    else
+      this.cadastrarProduto()
+  }
 
-    // Atribuir valores individualmente ao objeto, utilizar o service para enviar para a api
+  atualizarProduto() {
+    //DESENVOLVER
+  }
 
-    // COM ID - UPDATE
-
-    // SEM ID - CREATE
-
-    this.produto = Object.assign({}, this.produto, this.produtoForm.value);
-    this.produto.imagemBase64String = this.imagemProduto.split(',')[1];
+  cadastrarProduto() {
+    //DESENVOLVER
   }
 
   carregarImagem(files: any) {

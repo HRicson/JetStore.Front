@@ -1,0 +1,55 @@
+#loja_produtos {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  background-color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  width: 15rem;
+  height: 20rem;
+  padding: 5px;
+  margin: 10px;
+  text-align: center;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+img {
+  height: 10rem;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 5px;
+}
+
+.produto_nome {
+  font-size: 16pt;
+  font-weight: 600;
+  text-transform: capitalize;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.336);
+  margin-bottom: 15px;
+}
+
+.descricao {
+  font-size: 11pt;
+}
+
+.preco {
+  margin-top: 5px;
+  font-size: 14pt;
+  font-weight: 400;
+}
+
+.avaliacao > i {
+  color: orange;
+}

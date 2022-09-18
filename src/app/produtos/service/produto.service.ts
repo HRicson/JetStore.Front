@@ -26,6 +26,11 @@ export class ProdutoService {
     return this.produtos;
   }
 
+  consultarProdutoLoja(): Produto[] {
+    // Consultar na API e atualizar lista em memória - Status = true
+    return this.produtos;
+  }
+
   // TEMPORÁRIO - ALTERAR
   produtos: Produto[] = [
     {

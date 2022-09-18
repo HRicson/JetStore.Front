@@ -1,1 +1,61 @@
-<h1>produto-store-list works!</h1>
+<div id="loja_produtos">
+  <h2>Loja - Produtos</h2>
+
+  <form class="d-flex">
+    <input
+      class="form-control me-2"
+      type="search"
+      placeholder="Buscar produto..."
+      aria-label="Search"
+      (input)="pesquisaLoja($event.target)"
+    />
+    <button
+      class="btn btn-outline-primary"
+      type="button"
+      (click)="pesquisarProdutoLoja()"
+    >
+      <i class="bi bi-search"></i>
+    </button>
+  </form>
+
+  <div class="container" *ngIf="produtoLojaList.length > 0">
+    <div
+      class="card"
+      *ngFor="let produto of produtoLojaList"
+      title="Detalhes"
+      [routerLink]="['/loja/produto-detalhes', produto.id]"
+    >
+      <img
+        [src]="'data:image/png;base64,' + produto.imagemBase64String"
+        class="card-img-top"
+        [alt]="'Imagem do produto ' + produto.nome"
+      />
+      <div class="card-body">
+        <div class="produto_nome">
+          {{ produto.nome }}
+        </div>
+        <div class="avaliacao">
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star"></i>
+          <i class="bi bi-star"></i>
+        </div>
+        <div class="preco">
+          {{ produto.preco | currency: 'BRL' }}
+        </div>
+      </div>
+      <button class="btn btn-primary btn-sm">
+        Ver detalhes
+      </button>
+    </div>
+  </div>
+
+  <div
+    *ngIf="produtoLojaList.length == 0"
+    class="alert alert-primary"
+    role="alert"
+  >
+    Sem produtos.
+  </div>
+</div>

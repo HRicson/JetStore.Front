@@ -1,4 +1,11 @@
 <div class="container">
+  <h2>Produtos</h2>
+
+  <button class="btn btn-primary" [routerLink]="['/admin/produto']">
+    <i class="bi bi-plus"></i>
+    Cadastrar Produto
+  </button>
+
   <form class="d-flex">
     <input
       class="form-control me-2"
@@ -16,13 +23,6 @@
     </button>
   </form>
 
-  <button class="btn btn-primary" [routerLink]="['/admin/produto']">
-    <i class="bi bi-plus-square"></i>
-    Cadastrar Produto
-  </button>
-
-  <h2>Produtos</h2>
-
   <table class="table" *ngIf="produtoList.length > 0">
     <thead>
       <tr>
@@ -38,7 +38,10 @@
     <tbody>
       <tr *ngFor="let produto of produtoList">
         <td>
-          <div id="imagem_produto">
+          <div
+            id="imagem_produto"
+            [routerLink]="['/admin/produto', produto.id]"
+          >
             <div class="card">
               <img
                 *ngIf="produto.imagemBase64String"
@@ -47,7 +50,7 @@
                 alt="Imagem do produto"
               />
             </div>
-            {{ produto.nome }}
+            <h4>{{ produto.nome }}</h4>
           </div>
         </td>
         <td>{{ produto.estoque }}</td>

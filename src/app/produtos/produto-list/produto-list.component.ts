@@ -13,7 +13,6 @@ export class ProdutoListComponent implements OnInit {
 
   produtoPesquisa: string = '';
   produtoList: Produto[] = [];
-
   produtoService: ProdutoService;
 
   constructor(private router: Router) {

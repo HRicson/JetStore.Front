@@ -22,7 +22,6 @@ export class ProdutoStoreDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {
     this.produtoService = new ProdutoService();
-    // this.id = this.route.snapshot.params.id
   }
 
   ngOnInit(): void {

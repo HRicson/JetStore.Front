@@ -9,6 +9,10 @@
   align-items: center;
 }
 
+h1 {
+  text-transform: capitalize;
+}
+
 .card,
 #produto_imagem {
   width: 35rem;
@@ -66,4 +70,12 @@
   font-weight: 800;
   padding: 3px 5px;
   border-radius: 5px;
+}
+
+.voltar_loja {
+  margin-top: 3rem;
+}
+
+.avaliacao > i {
+  color: orange;
 }
