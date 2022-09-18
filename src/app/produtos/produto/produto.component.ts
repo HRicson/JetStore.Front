@@ -23,6 +23,9 @@ export class ProdutoComponent implements OnInit {
   fromResult: string = '';
   MASKS = utilsBr.MASKS;
 
+  mensagemTitulo: string = '';
+  mensagem: string = '';
+
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private produtoService: ProdutoService) { }
 
   ngOnInit(): void {
@@ -49,15 +52,27 @@ export class ProdutoComponent implements OnInit {
   }
 
   salvarProduto() {
-    if (this.produto.id !== '') {
-      this.produtoService
-        .alterar(this.produto)
-        .subscribe((produtosResposta) => (this.produto = produtosResposta.data));
-    }
-    else {
-      this.produtoService
-        .cadastrar(this.produto)
-        .subscribe((produtosResposta) => (this.produto = produtosResposta.data));
+    this.atualizarMensagem(false);
+
+    try {
+      if (this.produto.id !== '') {
+        this.produtoService
+          .alterar(this.produto)
+          .subscribe((produtosResposta) => {
+            this.produto = produtosResposta.data;
+            this.atualizarMensagem(true);
+          });
+      }
+      else {
+        this.produtoService
+          .cadastrar(this.produto)
+          .subscribe((produtosResposta) => {
+            this.produto = produtosResposta.data;
+            this.atualizarMensagem(true);
+          });
+      }
+    } catch (error) {
+      this.atualizarMensagem(false);
     }
   }
 
@@ -70,6 +85,16 @@ export class ProdutoComponent implements OnInit {
   estoqueValido = () => this.produtoForm.get('estoque')?.errors ? false : true;
 
   descricaoValido = () => this.produtoForm.get('descricao')?.errors ? false : true;
+
+  atualizarMensagem(sucesso: boolean) {
+    if (sucesso) {
+      this.mensagemTitulo = 'Sucesso'
+      this.mensagem = 'Produto salvo com sucesso!'
+    } else {
+      this.mensagemTitulo = 'Falha'
+      this.mensagem = 'Falha ao salvar produto!'
+    }
+  }
 
   carregarImagem(files: any) {
     if (files.lengh === 0 || files[0].type.match(/image\/*/) == null)

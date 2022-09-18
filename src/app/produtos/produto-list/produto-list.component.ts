@@ -14,6 +14,9 @@ export class ProdutoListComponent implements OnInit {
   produtoPesquisa: string = '';
   produtoList: Produto[] = [];
 
+  mensagemTitulo: string = '';
+  mensagem: string = '';
+
   constructor(private router: Router, private produtoService: ProdutoService) {
   }
 
@@ -32,15 +35,17 @@ export class ProdutoListComponent implements OnInit {
   }
 
   excluir(id: string) {
-    let removido: boolean;
+    this.atualizarMensagem(false);
 
-    this.produtoService.excluir(id)
-      .subscribe(
-        (produtosResposta) => {
-          removido = produtosResposta.success;
+    try {
+      this.produtoService.excluir(id)
+        .subscribe((produtosResposta) => {
           this.produtoList = this.produtoList.filter(x => x.id != id);
-        }
-      );
+          this.atualizarMensagem(true);
+        });
+    } catch (error) {
+      this.atualizarMensagem(false);
+    }
   }
 
   pesquisa(textoPesquisa: any) {
@@ -49,5 +54,15 @@ export class ProdutoListComponent implements OnInit {
 
   pesquisarProduto() {
     this.produtoList = this.produtoService.produtosTempList.filter(x => x.nome.includes(this.produtoPesquisa))
+  }
+
+  atualizarMensagem(sucesso: boolean) {
+    if (sucesso) {
+      this.mensagemTitulo = 'Sucesso'
+      this.mensagem = 'Produto excluído com sucesso!'
+    } else {
+      this.mensagemTitulo = 'Falha'
+      this.mensagem = 'Falha ao excluir produto!'
+    }
   }
 }
